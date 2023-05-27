@@ -12,10 +12,10 @@ class Settings:
         self.ship_limit = 3
 
         # Bullets settings
-        self.bullet_width = 300
+        self.bullet_width = 4
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
-        self.bullets_allowed = 8
+        self.bullets_allowed = 5
 
         # Alien settings
         self.alien_render = False
@@ -24,7 +24,7 @@ class Settings:
         # How quickly the game speeds up
         self.normal_alien_speedup_scale = 1.15
         self.better_alien_speedup_scale = 1.20
-        self.bullet_speedup_scale = 1.3
+        self.bullet_speedup_scale = 1.35
         self.ship_speedup_scale = 1.25
 
         # How quickly the aliens points scale.

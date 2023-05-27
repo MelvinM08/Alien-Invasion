@@ -16,8 +16,8 @@ class Scoreboard:
 
         # Font settings for the scoring information.
         self.text_color = (30, 30, 30)
-        self.font = pygame.font.SysFont(None, 46)
-        self.level_font = pygame.font.SysFont('modernno20', 36)
+        self.font = pygame.font.SysFont(None, 40)
+        self.level_font = pygame.font.SysFont(None, 24)
 
         # Prepare the initial score images.
         self.prep_score()
@@ -35,7 +35,7 @@ class Scoreboard:
         # Display the score at the top right of the screen.
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
-        self.score_rect.top = 20
+        self.score_rect.top = 10
 
     def prep_high_score(self):
         """Turn the high score into a rendered image."""
@@ -64,7 +64,7 @@ class Scoreboard:
 
         # Position the level at the below of the screen.
         self.level_rect.right = self.score_rect.right
-        self.level_rect.bottom = self.screen_rect.bottom - 10
+        self.level_rect.top = self.score_rect.bottom + 3   
 
     def prep_ships(self):
         """Draw the ships left to the screen."""
