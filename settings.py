@@ -18,10 +18,12 @@ class Settings:
         self.bullets_allowed = 8
 
         # Alien settings
+        self.alien_render = False
         self.fleet_drop_speed = 10
 
         # How quickly the game speeds up
-        self.alien_speedup_scale = 1.15
+        self.normal_alien_speedup_scale = 1.15
+        self.better_alien_speedup_scale = 1.30
         self.bullet_speedup_scale = 1.3
         self.ship_speedup_scale = 1.25
 
@@ -30,15 +32,17 @@ class Settings:
         if mode == 'easy':
             self.ship_speed = 1.5
             self.bullet_speed = 3.0
-            self.alien_speed = 1.0
+            self.normal_alien_speed = 1.0
         elif mode == 'normal':
             self.ship_speed = 2.0
             self.bullet_speed = 2.5
-            self.alien_speed = 1.5
+            self.normal_alien_speed = 1.5
+            self.better_alien_speed = 2.0
         elif mode == 'hard':
             self.ship_speed = 2.5
-            self.bullet_speed = 2.5
-            self.alien_speed = 2.0
+            self.bullet_speed = 3.0
+            self.normal_alien_speed = 2.0
+            self.better_alien_speed = 2.5
 
         # fleet directions of 1 represents right; -1 represents left.
         self.fleet_direction = 1
@@ -47,4 +51,5 @@ class Settings:
         """Increase speed settings."""
         self.ship_speed *= self.ship_speedup_scale
         self.bullet_speed *= self.bullet_speedup_scale
-        self.alien_speed *= self.alien_speedup_scale
+        self.normal_alien_speed *= self.normal_alien_speedup_scale
+        self.better_alien_speed *= self.better_alien_speedup_scale

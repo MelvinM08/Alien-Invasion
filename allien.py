@@ -9,24 +9,57 @@ class Alien(Sprite):
         super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
-        
-        # Load the alien image and set its rect attribute.
-        self.image = pygame.image.load("Part II//Alien Invasion//images//allien.bmp")
-        self.rect = self.image.get_rect()
 
-        # Start each new alien near the top left of the screen.
-        self.x = self.rect.width
-        self.y = self.rect.height
+        # Initialize all the aliens
+        self.normal_alien = AlienImage("Part II//Alien Invasion//images//alien.bmp")
 
-        # Store the alien's exact horizontal position.
-        self.x = float(self.rect.x)
+        self.image = self.normal_alien.image
+        self.rect = self.normal_alien.rect
 
     def check_edges(self):
         """Return True if alien is at edge of the screen."""
         screen_rect = self.screen.get_rect()
-        return (self.rect.right >= screen_rect.right) or (self.rect.left <= 0)
+        return (self.normal_alien.rect.right >= screen_rect.right) or (
+            self.normal_alien.rect.left <= 0)
 
     def update(self):
-        """Move the alien right or left."""
-        self.x += self.settings.alien_speed * self.settings.fleet_direction
-        self.rect.x = self.x
+        """Move the aliens right or left."""
+        # Normal alien position.
+        self.normal_alien.x += self.settings.normal_alien_speed * self.settings.fleet_direction
+        self.normal_alien.rect.x = self.normal_alien.x
+
+class BetterAlien(Sprite):
+    """A class to the better alien."""
+
+    def __init__(self, ai_game):
+        super().__init__()
+        self.screen = ai_game.screen
+        self.settings = ai_game.settings
+
+        self.better_alien = AlienImage("Part II//Alien Invasion//images//alien_2.bmp")
+
+        self.image = self.better_alien.image
+        self.rect = self.better_alien.rect
+
+    def check_edges(self):
+        """Return True if alien is at edge of the screen."""
+        screen_rect = self.screen.get_rect()
+        return (self.better_alien.rect.right >= screen_rect.right) or (
+                self.better_alien.rect.left <= 0)
+
+    def update(self):
+        """Move the aliens right or left"""
+        # Better alien position.
+        self.better_alien.x += self.settings.better_alien_speed * self.settings.fleet_direction
+        self.better_alien.rect.x = self.better_alien.x
+
+class AlienImage:
+    """A class to represent the image and position of an alien."""
+
+    def __init__(self, image_path):
+        """Initialize the alien image and set its rect attribute."""
+        self.image = pygame.image.load(image_path)
+        self.rect = self.image.get_rect()
+        self.x = self.rect.width
+        self.y = self.rect.height
+        self.x = float(self.rect.x)
