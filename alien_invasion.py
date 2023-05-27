@@ -9,6 +9,7 @@ from bullets import Bullet
 from allien import Alien
 from allien import BetterAlien
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from button import Button
 
 class AlienInvasion:
@@ -26,6 +27,9 @@ class AlienInvasion:
 
         # Create an instance to store game statics.
         self.stats = GameStats(self)
+
+        # Create a scoreboard instance.
+        self.scoreboard = Scoreboard(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -108,6 +112,7 @@ class AlienInvasion:
         if not self.game_active:
             # Reset the game stats.
             self.stats.reset_stats()
+            self.scoreboard.prep_score()
             self.game_active = True
         
             # Get rid of any remaining bullets and aliens.
@@ -153,6 +158,17 @@ class AlienInvasion:
                                                 True, True)
         better_alien_collide = pygame.sprite.groupcollide(self.bullets, self.better_aliens,
                                                             True, True)
+        
+        if normal_alien_collide:
+            for aliens in normal_alien_collide.values():
+                self.stats.score += self.settings.normal_alien_points * len(aliens)
+            self.scoreboard.prep_score()
+            self.scoreboard.check_high_score()
+        if better_alien_collide:
+            for aliens in better_alien_collide.values():
+                self.stats.score += self.settings.better_alien_points * len(aliens)
+            self.scoreboard.prep_score()
+            self.scoreboard.check_high_score()
         
         if not self.normal_aliens and not self.better_aliens:
             # Destroy existing bullets and create new fleet.
@@ -306,6 +322,9 @@ class AlienInvasion:
                 self.better_aliens.draw(self.screen)
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+
+        # Draw the score information.
+        self.scoreboard.show_score()
 
         # Draw the play button if the game is inactive.
         if not self.game_active:
